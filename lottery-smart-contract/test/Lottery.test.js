@@ -19,6 +19,17 @@ beforeEach(async () => {
 describe("Lottery Contract", () => {
   it("deploys a contract", () => {
     assert.ok(lottery.options.address);
+    console.log(lottery);
+    console.log(accounts);
+  });
+
+  it("call manager", async () => {
+    try {
+      await lottery.methods.manager().call();
+      assert(ok);
+    } catch (error) {
+      assert(error);
+    }
   });
 
   it("allows one account to enter", async () => {

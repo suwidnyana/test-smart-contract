@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.9;
 
 contract Lottery {
     address public manager;
@@ -7,6 +7,11 @@ contract Lottery {
 
     constructor() {
         manager = msg.sender;
+    }
+
+    function enter() public payable {
+        require(msg.value > .01 ether);
+        players.push(payable(msg.sender));
     }
 
     modifier restricted() {
@@ -21,11 +26,6 @@ contract Lottery {
                     abi.encodePacked(block.difficulty, block.timestamp, players)
                 )
             );
-    }
-
-    function enter() public payable {
-        require(msg.value > .01 ether);
-        players.push(payable(msg.sender));
     }
 
     function pickWinner() public restricted {
